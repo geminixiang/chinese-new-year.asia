@@ -1,0 +1,403 @@
+/* --- 1. 基礎設定與變數 --- */
+:root {
+    --bg-color: #2b0a0d; /* 深宮牆紅 */
+    --bg-accent: #1a0406;
+    --gold-primary: #c5a059; /* 流光金 */
+    --gold-highlight: #ffe6a0; /* 亮金 */
+    --text-white: #fdfbf7; /* 宣紙白 */
+    --glass-bg: rgba(43, 10, 13, 0.75);
+    --glass-border: rgba(197, 160, 89, 0.3);
+    --card-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-color);
+    /* CSS 繪製祥雲/宮廷紋理背景 */
+    background-image: 
+        radial-gradient(circle at 50% 0%, #4a1216 0%, transparent 70%),
+        radial-gradient(circle at 80% 80%, rgba(197, 160, 89, 0.1) 0%, transparent 40%),
+        repeating-linear-gradient(45deg, rgba(0,0,0,0.02) 0px, rgba(0,0,0,0.02) 2px, transparent 2px, transparent 4px);
+    color: var(--text-white);
+    font-family: 'Inter', system-ui, sans-serif;
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+h1, h2, h3, .royal-font {
+    font-family: 'Noto Serif TC', serif;
+    letter-spacing: 0.1em;
+}
+
+/* --- 2. 通用元件 --- */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 2.5rem;
+    color: var(--gold-primary);
+    margin: 4rem 0 2rem;
+    position: relative;
+    text-shadow: 0 0 10px rgba(197, 160, 89, 0.4);
+}
+
+.section-title::before, .section-title::after {
+    content: "✦";
+    margin: 0 15px;
+    color: var(--gold-highlight);
+}
+
+.glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    box-shadow: var(--card-shadow);
+    padding: 2rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.glass-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 40px 0 rgba(197, 160, 89, 0.2);
+    border-color: var(--gold-primary);
+}
+
+/* --- 3. Hero Section (主視覺) --- */
+header {
+    min-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    border-bottom: 2px solid var(--gold-primary);
+}
+
+header::after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 20px;
+    background: var(--gold-primary);
+    transform: rotate(45deg) translateX(-50%);
+    border: 2px solid var(--bg-color);
+}
+
+.hero-subtitle {
+    font-size: 1.2rem;
+    color: var(--gold-highlight);
+    margin-bottom: 1rem;
+    opacity: 0.9;
+}
+
+.hero-title {
+    font-size: 4rem;
+    font-weight: 900;
+    background: linear-gradient(to bottom, #ffe6a0, #c5a059);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 2rem;
+    filter: drop-shadow(0 0 5px rgba(197, 160, 89, 0.5));
+}
+
+/* 倒數計時器 */
+.countdown-container {
+    margin-top: 2rem;
+}
+
+.countdown-label {
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+    color: #ddd;
+}
+
+.countdown-timer {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+}
+
+.time-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.time-value {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--bg-color);
+    background: var(--gold-primary);
+    width: 80px;
+    height: 90px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    box-shadow: 0 0 15px var(--gold-primary);
+    position: relative;
+}
+
+/* 模擬宮燈流蘇 */
+.time-value::after {
+    content: "";
+    position: absolute;
+    bottom: -20px;
+    width: 4px;
+    height: 20px;
+    background: #d93030;
+    box-shadow: 4px 0 0 #d93030, -4px 0 0 #d93030;
+}
+
+.time-label {
+    margin-top: 1.5rem; /* 為了避開流蘇 */
+    font-size: 0.9rem;
+    color: var(--gold-highlight);
+}
+
+/* --- 4. 攻略卡片區 (Strategy) --- */
+.strategy-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    padding-bottom: 4rem;
+}
+
+.strategy-card h3 {
+    color: var(--gold-primary);
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    border-bottom: 1px dashed var(--gold-primary);
+    padding-bottom: 0.5rem;
+}
+
+.strategy-card p {
+    color: #ccc;
+    font-size: 0.95rem;
+}
+
+.strategy-icon {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    display: block;
+}
+
+/* --- 5. Q版畫廊 (Gallery) - 圖片更新區 --- */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    padding-bottom: 4rem;
+}
+
+.gallery-item {
+    position: relative;
+    aspect-ratio: 1; /* 正方形 */
+    overflow: hidden;
+    border-radius: 8px;
+    border: 2px solid transparent;
+    /* 背景維持暗紅，確保透明 PNG 顯示清晰 */
+    background-color: #3b0e12; 
+    background-image: linear-gradient(to right, #d93030, #c5a059);
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* 若原圖非正方形，自動裁切填滿 */
+    transition: transform 0.5s ease;
+    opacity: 1;
+}
+
+.gallery-item:hover img {
+    transform: scale(1.1);
+}
+
+/* 圖片說明遮罩 */
+.gallery-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(43, 10, 13, 0.85);
+    color: var(--gold-primary);
+    padding: 8px;
+    text-align: center;
+    font-family: 'Noto Serif TC', serif;
+    font-size: 0.9rem;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+}
+
+.gallery-item:hover .gallery-caption {
+    transform: translateY(0);
+}
+
+/* --- 6. 店家地圖 (Map Section) --- */
+.store-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding-bottom: 6rem;
+}
+
+.store-card {
+    display: flex;
+    flex-direction: row; 
+    background: rgba(20, 5, 7, 0.8);
+    border: 1px solid var(--gold-primary);
+    border-radius: 12px;
+    overflow: hidden;
+    min-height: 300px;
+}
+
+.store-info {
+    flex: 1;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-right: 1px solid rgba(197, 160, 89, 0.2);
+}
+
+.store-name {
+    font-size: 1.8rem;
+    color: var(--gold-highlight);
+    margin-bottom: 0.5rem;
+}
+
+.store-tags {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+}
+
+.tag {
+    font-size: 0.8rem;
+    padding: 4px 8px;
+    border: 1px solid var(--gold-primary);
+    color: var(--gold-primary);
+    border-radius: 4px;
+}
+
+.store-price {
+    font-size: 1.4rem;
+    color: #ff6b6b; /* 硃砂紅亮色 */
+    font-weight: bold;
+    margin-bottom: 1rem;
+    font-family: 'Noto Serif TC', serif;
+}
+
+.store-address {
+    color: #aaa;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.store-map {
+    flex: 1;
+    background: #000;
+}
+
+.store-map iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    filter: grayscale(0.5) contrast(1.2) invert(0.1);
+}
+
+/* --- 7. Footer --- */
+footer {
+    text-align: center;
+    padding: 3rem 0;
+    border-top: 1px solid var(--gold-primary);
+    background: #1a0406;
+    color: var(--gold-primary);
+}
+
+footer p.end-msg {
+    font-size: 1.5rem;
+    font-family: 'Noto Serif TC', serif;
+    margin-bottom: 1rem;
+}
+
+/* --- 8. 影片區塊 (Video) --- */
+.video-wrapper {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+    height: 0;
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: var(--card-shadow);
+    border: 1px solid var(--gold-primary);
+    margin-bottom: 6rem;
+    background: #000;
+}
+
+.video-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* --- 9. RWD 響應式 --- */
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 2.5rem;
+        padding: 0 10px;
+    }
+    
+    .countdown-timer {
+        gap: 0.8rem;
+    }
+
+    .time-value {
+        width: 60px;
+        height: 70px;
+        font-size: 1.8rem;
+    }
+
+    .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .store-card {
+        flex-direction: column;
+    }
+
+    .store-info {
+        border-right: none;
+        border-bottom: 1px solid rgba(197, 160, 89, 0.2);
+        padding: 1.5rem;
+    }
+
+    .store-map {
+        height: 250px;
+    }
+}
