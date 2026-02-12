@@ -64,12 +64,13 @@
     <div class="container">
         <!-- 熹貴妃馬拉松 -->
         <h2 class="section-title">熹貴妃馬拉松</h2>
-        <div class="video-wrapper">
-            <iframe
+        <div class="live-badge"><span class="dot"></span> LIVE</div>
+        <div class="video-wrapper" id="live-block">
+            <iframe id="live-yt"
                 width="560"
                 height="315"
-                src="https://www.youtube.com/embed/videoseries?list=PL4U9STbe5zoLx3_OPdyOGLNyQwStxEAov&autoplay=1&mute=1"
-                title="後宮甄嬛傳"
+                src="https://www.youtube.com/embed/_GL9HgmaFfU?autoplay=1&mute=1"
+                title="後宮甄嬛傳 LIVE"
                 frameborder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 allowfullscreen>
@@ -100,6 +101,18 @@
                 title="他又要解冻了#刘德华 解冻#搞笑"
                 frameborder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen>
+            </iframe>
+        </div>
+
+        <div class="video-wrapper">
+            <iframe
+                width="560"
+                height="315"
+                src="https://www.youtube.com/embed/tBYG62NeTdU?rel=0&modestbranding=1"
+                title="補充影片"
+                frameborder="0"
+                allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 allowfullscreen>
             </iframe>
         </div>
@@ -220,5 +233,20 @@
     </footer>
 
     <script src="js/script.js"></script>
+    <script>
+      // 手動一鍵切回清單
+      (function(){
+        const btn = document.getElementById('fallbackBtn');
+        const live = document.getElementById('live-yt');
+        if(btn && live){
+          btn.addEventListener('click', function(e){
+            e.preventDefault();
+            live.src = 'https://www.youtube.com/embed/videoseries?list=PL4U9STbe5zoLx3_OPdyOGLNyQwStxEAov&autoplay=1&mute=1';
+            const badge = document.querySelector('#live-block .live-badge');
+            if (badge) badge.textContent = 'REPLAY';
+          });
+        }
+      })();
+    </script>
 </body>
 </html>
